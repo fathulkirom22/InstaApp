@@ -7,6 +7,95 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+
+# InstaApp
+
+A Laravel-based Instagram-like social media application that allows users to share photos, interact with posts, and connect with other users.
+
+## Features
+
+- 📱 User authentication and profiles
+- 📸 Photo sharing with captions
+- ❤️ Like and comment on posts
+- 🔒 Public/private post settings
+- 📱 Responsive design
+
+## Requirements
+
+- PHP 8.1 or higher
+- Laravel 12.x
+- MySQL/PostgreSQL/SQLite
+- Composer
+- Node.js & NPM
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/fathulkirom22/InstaApp
+cd InstaApp
+```
+
+2. Install PHP dependencies:
+```bash
+composer install
+```
+
+3. Install and compile frontend dependencies:
+```bash
+npm install
+npm run dev
+```
+
+4. Configure environment variables:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+5. Configure your database in `.env`:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=instaapp
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+6. Run migrations:
+```bash
+php artisan migrate
+```
+
+7. Create storage link for uploads:
+```bash
+php artisan storage:link
+```
+
+## Usage
+
+### Creating an Account
+1. Visit the registration page
+2. Fill in your details
+
+### Sharing Posts
+1. Go to `My Feed` page
+2. Upload image
+3. Add a caption
+4. Choose privacy settings (public/private)
+5. Click "Share Post"
+
+### Interacting with Posts
+- Like posts by clicking the heart icon
+- Comment on posts using the comment section
+
+### Privacy Settings
+- Public posts are visible to everyone
+- Private posts are only visible to you
+- Toggle privacy settings when creating posts
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
