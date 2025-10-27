@@ -11,16 +11,19 @@ use App\Models\PostMedia;
 class PostController extends Controller
 {
     /**
-     * Tampilkan daftar post pengguna saat ini
+     * Tampilkan detail post
      */
-    public function index(Request $request)
+    public function view(Request $request, $id)
     {
-        $posts = Post::with('media')
-            ->where('user_id', $request->user()->id)
-            ->latest()
-            ->paginate(10);
+        $post = Post::with('media', 'user')
+            ->findOrFail($id);
 
-        return view('dashboard', compact('posts'));
+        // Cek apakah post bersifat publik atau milik pengguna saat ini
+        if (!$post->is_public && (!$request->user() || $request->user()->id != $post->user_id)) {
+            abort(403, 'You do not have permission to view this post.');
+        }
+
+        return view('post.view', compact('post'));
     }
 
     /**
@@ -69,5 +72,30 @@ class PostController extends Controller
                 ->withErrors(['error' => 'Gagal membuat post: ' . $e->getMessage()])
                 ->withInput();
         }
+    }
+
+    /**
+     * Suka atau tidak suka pada post
+     */
+    public function like(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+
+        // Cek apakah pengguna sudah menyukai post ini
+        $like = $post->likes()->where('user_id', $request->user()->id)->first();
+
+        if ($like) {
+            // Jika sudah disukai, batalkan suka
+            $like->delete();
+            $post->decrement('like_count');
+        } else {
+            // Jika belum disukai, berikan tanda suka pada post
+            $post->likes()->create([
+                'user_id' => $request->user()->id,
+            ]);
+            $post->increment('like_count');
+        }
+
+        return redirect()->back()->with('success', 'Your like status has been updated.');
     }
 }
