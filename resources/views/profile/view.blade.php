@@ -67,6 +67,7 @@
                         <!-- Privacy Toggle -->
                         <div class="flex items-center space-x-3">
                             <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                <input type="hidden" name="is_public" value="0">
                                 <input type="checkbox" name="is_public" id="is_public" value="1"
                                        class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
                                 <label for="is_public"
